@@ -1,0 +1,85 @@
+<div class="container">
+    <hr>
+    <h1>List of cars</h1>
+    <hr>
+    <div>
+        <div class="row" id="cars">
+        </div>
+    </div>
+</div>
+
+<script>
+    
+const decreaseQuantity = (id) => {
+    const xhttp = new XMLHttpRequest()
+
+    xhttp.open("GET", `http://localhost:3000/car/${id}`, false);
+    xhttp.send();
+    let car = JSON.parse(xhttp.responseText);
+
+    car.stock -= 1;
+ 
+    xhttp.open("PUT", `http://localhost:3000/car/${id}`, false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(car));
+    location.reload();
+}
+
+const increaseQuantity = (id) => {
+    const xhttp = new XMLHttpRequest()
+
+xhttp.open("GET", `http://localhost:3000/car/${id}`, false);
+xhttp.send();
+let car = JSON.parse(xhttp.responseText);
+
+car.stock += 1;
+
+xhttp.open("PUT", `http://localhost:3000/car/${id}`, false);
+xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhttp.send(JSON.stringify(car));
+location.reload();
+}
+
+const deleteCar = (id) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("DELETE", `http://localhost:3000/car/${id}`, false);
+    xhttp.send();
+    location.reload();
+}
+
+const loadCars = () => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "http://localhost:3000/cars", false);
+    xhttp.send();
+
+    const cars = JSON.parse(xhttp.responseText);
+
+    for (let car of cars) {
+        const x = `
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${car.id}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${car.name}</h6>
+
+                        <div>Price: ${car.price}</div>
+                        <div>Stock: ${car.stock}</div>
+
+                        <hr>
+
+                        <button type="button" class="btn btn-danger" onClick="deleteCar(${car.id})">Delete</button>
+                        <button type="button" onClick="decreaseQuantity(${car.id})"> - </button>
+                        <button type="button" onClick="increaseQuantity(${car.id})"> + </button>
+                    </div>
+                </div>
+            </div>
+        `
+
+        document.getElementById('cars').innerHTML = document.getElementById('cars').innerHTML + x;
+    }
+}
+
+loadCars();
+</script>

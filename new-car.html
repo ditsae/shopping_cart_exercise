@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <link type="text/html" rel="stylesheet" href="style.css">
+            <title>Cars</title>
+        </head>
+        <body>
+            <h1>Create new car</h1>
+        
+            <div class="container">
+            
+            
+                <form action="http://localhost:3000/car" method="POST">
+                    <div class="form-group">
+                        <label for="id">Id</label>
+                        <input class="form-control" name="id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" name="name">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input class="form-control" name="price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input class="form-control" name="stock">
+                    </div>
+            
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            
+            </div>
+         
+        </body>
+    </html>   
